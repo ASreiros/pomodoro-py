@@ -19,32 +19,31 @@ def start_clicked():
 	print("start clicked")
 	if timer_mechanism.state == "off":
 		timer_mechanism.state = "working"
-		main_label.config(text="Work Timer")
+		main_label.config(text="Work", fg=RED)
 		count_down(WORK_MIN * 60)
 
 
 def reset_clicked():
 	timer_mechanism.reset_mechanism()
-	main_label.config(text="Timer")
+	main_label.config(text="Timer", fg=GREEN)
 	checkmark_label.config(text=timer_mechanism.text_of_checkmarks)
 
 
 def state_changer():
 	new_state = timer_mechanism.change_state()
-	top_text = ""
 	match new_state:
 		case "working":
 			count_down(WORK_MIN*60)
-			top_text = "Work"
+			main_label.config(text="Work", fg=RED)
 		case "resting":
 			count_down(SHORT_BREAK_MIN*60)
-			top_text = "Rest"
+			main_label.config(text="Rest", fg=GREEN)
 		case "long resting":
 			count_down(LONG_BREAK_MIN*60)
-			top_text = "Long Rest"
+			main_label.config(text="Long Rest", fg=GREEN)
 		case _:
 			print("it is off")
-	main_label.config(text=f"{top_text} Timer")
+
 	checkmark_label.config(text=timer_mechanism.text_of_checkmarks)
 
 
@@ -77,7 +76,7 @@ window.config(padx=110, pady=50, bg=YELLOW)
 
 fg = GREEN
 main_label = tkinter.Label(text="Timer", font=(FONT_NAME, 28, "bold"), foreground=fg, bg=YELLOW)
-main_label.config(padx=20, pady=20)
+main_label.config(padx=20, pady=20, width=10)
 main_label.grid(column=1, row=0)
 
 canvas = tkinter.Canvas(width=200, height=224, bg=YELLOW, highlightthickness=0)
